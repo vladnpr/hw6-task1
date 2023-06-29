@@ -11,7 +11,7 @@ type Courier struct {
 }
 
 func (c *Courier) Send() {
-	fmt.Printf("Відправлення посилки від %s до %s поштою\\n", c.parcel.GetSender(), c.parcel.GetRecipient())
+	fmt.Printf("Відправлення посилки від %s до %s кур'єром\\n", c.parcel.GetSender(), c.parcel.GetRecipient())
 }
 
 type Postman struct {
