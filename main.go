@@ -2,88 +2,65 @@ package main
 
 import "fmt"
 
-type Sender interface {
-	Send()
-}
-
-type Courier struct {
-	parcel *Box
-}
-
-func (c *Courier) Send() {
-	fmt.Printf("Відправлення посилки від %s до %s кур'єром\\n", c.parcel.GetSender(), c.parcel.GetRecipient())
-}
-
-type Postman struct {
-	parcel *Envelope
-}
-
-func (p *Postman) Send() {
-	fmt.Printf("Відправлення листа від %s до %s поштою\\n", p.parcel.GetSender(), p.parcel.GetRecipient())
-}
-
 type Package interface {
 	GetSender() string
 	GetRecipient() string
+	Send()
 }
 
 type Box struct {
-	senderAddress string
-	recipient     string
+	Sender    string
+	Recipient string
 }
 
-func (b *Box) GetSender() string {
-	return b.senderAddress
+func (b Box) GetSender() string {
+	return b.Sender
 }
 
-func (b *Box) GetRecipient() string {
-	return b.recipient
+func (b Box) GetRecipient() string {
+	return b.Recipient
+}
+
+func (b Box) Send() {
+	fmt.Printf("Відправлення коробки від %s до %s поштою\n", b.Sender, b.Recipient)
 }
 
 type Envelope struct {
-	senderAddress string
-	recipient     string
+	Sender    string
+	Recipient string
 }
 
-func (e *Envelope) GetSender() string {
-	return e.senderAddress
+func (e Envelope) GetSender() string {
+	return e.Sender
 }
 
-func (e *Envelope) GetRecipient() string {
-	return e.recipient
+func (e Envelope) GetRecipient() string {
+	return e.Recipient
 }
 
-type SortingDepartment struct {
+func (e Envelope) Send() {
+	fmt.Printf("Відправлення конверта від %s до %s поштою\n", e.Sender, e.Recipient)
 }
 
-func (sd *SortingDepartment) SendPackage(p Package) {
-	var sender Sender
-	switch p.(type) {
-	case *Box:
-		fmt.Println("Сортувальний відділ: Виявлено коробку")
-		sender = &Courier{parcel: p.(*Box)}
-		sender.Send()
-	case *Envelope:
-		fmt.Println("Сортувальний відділ: Виявлено конверт")
-		sender = &Postman{parcel: p.(*Envelope)}
-		sender.Send()
-	default:
-		fmt.Println("Сортувальний відділ: Невідомий тип посилки")
-	}
+type SortingDepartment struct{}
+
+func (sd SortingDepartment) SendPackage(p Package) {
+	fmt.Println("Сортування...")
+	p.Send()
 }
 
 func main() {
 	box := Box{
-		senderAddress: "John",
-		recipient:     "Alice",
+		Sender:    "John",
+		Recipient: "Alice",
 	}
 
 	envelope := Envelope{
-		senderAddress: "Bob",
-		recipient:     "Eve",
+		Sender:    "Bob",
+		Recipient: "Eve",
 	}
 
 	sortingDept := SortingDepartment{}
-	sortingDept.SendPackage(&box)
-	sortingDept.SendPackage(&envelope)
+	sortingDept.SendPackage(box)
+	sortingDept.SendPackage(envelope)
 }
