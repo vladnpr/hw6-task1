@@ -22,7 +22,7 @@ func (b Box) GetRecipient() string {
 }
 
 func (b Box) Send() {
-	fmt.Printf("Відправлення коробки від %s до %s поштою\n", b.Sender, b.Recipient)
+	fmt.Printf("Відправлення коробки від %s до %s кур'єром\n", b.Sender, b.Recipient)
 }
 
 type Envelope struct {
@@ -39,7 +39,7 @@ func (e Envelope) GetRecipient() string {
 }
 
 func (e Envelope) Send() {
-	fmt.Printf("Відправлення конверта від %s до %s поштою\n", e.Sender, e.Recipient)
+	fmt.Printf("Відправлення конверта від %s до %s листоношою\n", e.Sender, e.Recipient)
 }
 
 type SortingDepartment struct{}
