@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 type Package interface {
 	GetSender() string
@@ -46,6 +49,8 @@ type SortingDepartment struct{}
 
 func (sd SortingDepartment) SendPackage(p Package) {
 	fmt.Println("Сортування...")
+	fmt.Printf("\nГотуємо відпавку для %s...\n", p.GetRecipient())
+	time.Sleep(2 * time.Second)
 	p.Send()
 }
 
