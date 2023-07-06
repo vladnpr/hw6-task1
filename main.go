@@ -51,6 +51,11 @@ func (sd SortingDepartment) SendPackage(p Package) {
 	fmt.Println("Сортування...")
 	fmt.Printf("\nГотуємо відпавку для %s...\n", p.GetRecipient())
 	time.Sleep(2 * time.Second)
+	fmt.Printf("\nВизначаємо адресу %s...\n", p.GetRecipient())
+	time.Sleep(time.Second)
+	fmt.Printf("\nПередаємо кур'єру...\n")
+	time.Sleep(time.Second)
+
 	p.Send()
 }
 
